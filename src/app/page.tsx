@@ -498,7 +498,10 @@ function HeroSection() {
       <div className="absolute inset-0 z-0">
         <img
           src="/hero-bg.jpg"
-          alt=""
+          alt="Atmosphärisches Hintergrundbild für DesireMap Premium-Verzeichnis"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Dark overlay for readability */}
@@ -1467,7 +1470,9 @@ function DetailPage({ bordell, onBack }: { bordell: Bordell; onBack: () => void 
         <div className="absolute inset-0">
           <img
             src={bordell.coverImage || "/hero-bg.jpg"}
-            alt=""
+            alt={`${bordell.name} in ${bordell.city}`}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover blur-xl scale-110 opacity-60"
             onError={(e) => {
               // Eğer özel görsel yoksa varsayılan görseli kullan
@@ -1631,13 +1636,13 @@ function DetailPage({ bordell, onBack }: { bordell: Bordell; onBack: () => void 
             <div className="lg:col-span-2 space-y-8">
               {/* Description */}
               <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
-                <h3 className="text-xl font-semibold text-white mb-4">Beschreibung</h3>
+                <h2 className="text-xl font-semibold text-white mb-4">Beschreibung</h2>
                 <p className="text-gray-400 leading-relaxed">{bordell.description}</p>
               </div>
 
               {/* Services */}
               <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
-                <h3 className="text-xl font-semibold text-white mb-4">Services & Ausstattung</h3>
+                <h2 className="text-xl font-semibold text-white mb-4">Services & Ausstattung</h2>
                 <div className="flex flex-wrap gap-3">
                   {bordell.services.map((service) => (
                     <Badge key={service} variant="outline" className="border-[#8b1a4a]/30 text-[#b76e79] px-4 py-2 text-sm">
@@ -1650,7 +1655,7 @@ function DetailPage({ bordell, onBack }: { bordell: Bordell; onBack: () => void 
               {/* Similar Places */}
               {similarPlaces.length > 0 && (
                 <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
-                  <h3 className="text-xl font-semibold text-white mb-4">Ähnliche Betriebe in {bordell.city}</h3>
+                  <h2 className="text-xl font-semibold text-white mb-4">Ähnliche Betriebe in {bordell.city}</h2>
                   <div className="grid sm:grid-cols-3 gap-4">
                     {similarPlaces.map((place) => (
                       <div key={place.id} className="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-colors cursor-pointer">
@@ -1670,7 +1675,7 @@ function DetailPage({ bordell, onBack }: { bordell: Bordell; onBack: () => void 
             <div className="space-y-6">
               {/* Contact Card */}
               <div className="bg-gradient-to-b from-[#8b1a4a]/10 to-transparent rounded-2xl p-6 border border-[#8b1a4a]/20">
-                <h3 className="text-xl font-semibold text-white mb-6">Kontakt</h3>
+                <h2 className="text-xl font-semibold text-white mb-6">Kontakt</h2>
                 
                 <div className="space-y-4">
                   <a href={`tel:${bordell.phone}`} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors group">

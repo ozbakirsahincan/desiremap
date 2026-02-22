@@ -1,0 +1,21 @@
+{
+  "name": "DesireMap - Premium Erotik Guide Deutschland",
+  "short_name": "DesireMap",
+  "description": "Verifizierte FKK Clubs, Bordelle und Laufhäuser in Deutschland finden.",
+  "lang": "de-DE",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "directory", "business"],
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
