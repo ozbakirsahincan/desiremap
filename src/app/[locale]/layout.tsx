@@ -4,9 +4,10 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Toaster } from '@/components/ui/toaster'
+import { getStructuredData } from '@/lib/structuredData'
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
-const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'], display: 'swap' })
+const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'], display: 'swap', preload: false })
 const siteUrl = 'https://desiremap.de'
 const locales = ['de', 'en', 'ar', 'tr']
 
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     metadataBase: new URL(siteUrl),
     title: { default: title, template: '%s | DesireMap' },
     description,
+    icons: { icon: '/icon.svg', apple: '/icon.svg' },
     alternates: { canonical: `/${locale}`, languages: { de: '/de', en: '/en', tr: '/tr', ar: '/ar', 'x-default': '/de' } },
     openGraph: { type: 'website', locale: ogLocale, url: `${siteUrl}/${locale}`, siteName: 'DesireMap', title, description, images: [{ url: '/hero-bg.jpg', width: 1200, height: 630 }] },
     twitter: { card: 'summary_large_image', title, description, images: ['/hero-bg.jpg'] }
@@ -34,24 +36,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export function generateStaticParams() { return locales.map((locale) => ({ locale })) }
-
-const listingSchemas = [
-  { '@type': 'LocalBusiness', '@id': `${siteUrl}/#listing-1`, name: 'Artemis', description: 'Berlins größtes FKK Club', telephone: '+49 30 123456', address: { '@type': 'PostalAddress', addressLocality: 'Berlin', addressCountry: 'DE' }, aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.8, reviewCount: 1247 } },
-  { '@type': 'LocalBusiness', '@id': `${siteUrl}/#listing-2`, name: 'Pascha', description: 'Europas größtes Laufhaus', telephone: '+49 221 123456', address: { '@type': 'PostalAddress', addressLocality: 'Köln', addressCountry: 'DE' }, aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.6, reviewCount: 892 } },
-  { '@type': 'LocalBusiness', '@id': `${siteUrl}/#listing-3`, name: 'Café del Sol', description: 'Exklusives Bordell Hamburg', telephone: '+49 40 123456', address: { '@type': 'PostalAddress', addressLocality: 'Hamburg', addressCountry: 'DE' }, aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.5, reviewCount: 423 } },
-  { '@type': 'LocalBusiness', '@id': `${siteUrl}/#listing-4`, name: 'Paradise', description: 'Premium FKK Stuttgart', telephone: '+49 711 123456', address: { '@type': 'PostalAddress', addressLocality: 'Stuttgart', addressCountry: 'DE' }, aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.7, reviewCount: 678 } },
-  { '@type': 'LocalBusiness', '@id': `${siteUrl}/#listing-5`, name: 'Royal', description: 'Laufhaus München', telephone: '+49 89 123456', address: { '@type': 'PostalAddress', addressLocality: 'München', addressCountry: 'DE' }, aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.4, reviewCount: 312 } },
-  { '@type': 'LocalBusiness', '@id': `${siteUrl}/#listing-6`, name: 'Diamond', description: 'VIP Frankfurt', telephone: '+49 69 123456', address: { '@type': 'PostalAddress', addressLocality: 'Frankfurt', addressCountry: 'DE' }, aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.6, reviewCount: 534 } }
-]
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    { '@type': 'Organization', '@id': `${siteUrl}/#organization`, name: 'DesireMap', url: siteUrl, logo: `${siteUrl}/logo.svg` },
-    { '@type': 'WebSite', '@id': `${siteUrl}/#website`, url: siteUrl, name: 'DesireMap', publisher: { '@id': `${siteUrl}/#organization` }, potentialAction: { '@type': 'SearchAction', target: `${siteUrl}/?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
-    { '@type': 'ItemList', '@id': `${siteUrl}/#featured-listings`, name: 'Featured Listings', itemListElement: listingSchemas.map((item, index) => ({ '@type': 'ListItem', position: index + 1, item })) }
-  ]
-}
 
 export default async function LocaleLayout({
   children,
@@ -67,10 +51,12 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages({ locale })
+  const { title, description } = getLocaleData(locale)
+  const structuredData = getStructuredData(locale, title, description, locales)
 
   return (
     <html lang={locale} className="dark" suppressHydrationWarning dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`} suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <NextIntlClientProvider messages={messages}>
           {children}
