@@ -18,14 +18,26 @@ export function ListingsSection({ bordells, onBordellClick }: ListingsSectionPro
   }, [bordells, selectedCategory])
 
   return (
-    <section className="relative py-24 bg-linear-to-b from-[#0f0f14] to-[#0a0a0f] overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#8b1a4a]/5 rounded-full blur-[150px]" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6b3fa0]/5 rounded-full blur-[120px]" />
+    <section className="relative py-24 overflow-hidden">
+      <div className="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1515630278258-407f66498911?w=1920&q=80" alt="" className="w-full h-full object-cover opacity-10" />
+        <div className="absolute inset-0 bg-linear-to-b from-black via-[#0a0810]/95 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70" />
+      </div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#8b1a4a]/10 rounded-full blur-[180px]" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#6b3fa0]/10 rounded-full blur-[150px]" />
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12"><span className="inline-block text-[#b76e79] text-sm font-medium tracking-widest uppercase mb-3">Empfehlungen</span><h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Ausgewaehlte Betriebe</h2><p className="text-gray-400 text-lg">{sortedBordells.length} verifizierte Betriebe</p></div>
-        <div className="flex flex-wrap justify-center gap-3 mb-12"><Button onClick={() => setSelectedCategory(null)} size="sm" variant={selectedCategory === null ? 'default' : 'outline'} className={cn('rounded-full px-5', selectedCategory === null ? 'bg-linear-to-r from-[#8b1a4a] to-[#6b3fa0] text-white border-0' : 'border-white/10 text-gray-300 hover:bg-white/5 hover:text-white')}>Alle</Button>{categories.map((cat) => <Button key={cat.id} onClick={() => setSelectedCategory(cat.id)} size="sm" variant={selectedCategory === cat.id ? 'default' : 'outline'} className={cn('rounded-full px-5', selectedCategory === cat.id ? 'bg-linear-to-r from-[#8b1a4a] to-[#6b3fa0] text-white border-0' : 'border-white/10 text-gray-300 hover:bg-white/5 hover:text-white')}>{cat.name}</Button>)}</div>
+        <div className="text-center mb-12">
+          <span className="inline-block text-[#b76e79] text-sm font-medium tracking-widest uppercase mb-3">Empfehlungen</span>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Ausgewaehlte Betriebe</h2>
+          <p className="text-gray-400 text-lg">{sortedBordells.length} verifizierte Betriebe</p>
+        </div>
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <Button onClick={() => setSelectedCategory(null)} size="sm" variant={selectedCategory === null ? 'default' : 'outline'} className={cn('rounded-full px-5', selectedCategory === null ? 'bg-linear-to-r from-[#8b1a4a] to-[#6b3fa0] text-white border-0' : 'border-white/20 text-gray-300 hover:bg-white/10 hover:text-white backdrop-blur-sm')}>Alle</Button>
+          {categories.map((cat) => <Button key={cat.id} onClick={() => setSelectedCategory(cat.id)} size="sm" variant={selectedCategory === cat.id ? 'default' : 'outline'} className={cn('rounded-full px-5', selectedCategory === cat.id ? 'bg-linear-to-r from-[#8b1a4a] to-[#6b3fa0] text-white border-0' : 'border-white/20 text-gray-300 hover:bg-white/10 hover:text-white backdrop-blur-sm')}>{cat.name}</Button>)}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{sortedBordells.map((bordell, index) => <ListingCard key={bordell.id} bordell={bordell} index={index} onDetailClick={onBordellClick} />)}</div>
-        <div className="flex justify-center mt-16"><Button size="lg" variant="outline" className="border-white/10 text-white hover:bg-white/5 px-10 rounded-full group">Mehr anzeigen<ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></Button></div>
+        <div className="flex justify-center mt-16"><Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 px-10 rounded-full group backdrop-blur-sm">Mehr anzeigen<ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></Button></div>
       </div>
     </section>
   )
