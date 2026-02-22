@@ -385,19 +385,18 @@ function Header({ onLoginClick, isLoggedIn, onDashboardClick }: { onLoginClick: 
       animate={{ y: 0 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-        isScrolled ? 'bg-black/90 backdrop-blur-xl py-4' : 'bg-transparent py-6'
+        isScrolled ? 'bg-black/90 backdrop-blur-xl py-3 sm:py-4' : 'bg-transparent py-4 sm:py-6'
       )}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8b1a4a] to-[#6b3fa0] flex items-center justify-center">
-              <Flame className="w-5 h-5 text-white" />
+          <a href="#" className="flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#8b1a4a] to-[#6b3fa0] flex items-center justify-center">
+              <Flame className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
             <div>
-              <span className="text-xl font-bold text-white tracking-wider">DESIREMAP</span>
-              <span className="text-gray-500 text-xs">.de</span>
+              <span className="text-lg sm:text-xl font-bold text-white tracking-wider">DESIREMAP</span>
+              <span className="text-gray-500 text-xs hidden sm:inline">.de</span>
             </div>
           </a>
 
@@ -537,9 +536,8 @@ function HeroSection() {
         ))}
       </div>
 
-      {/* Gradient Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#8b1a4a]/20 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#6b3fa0]/20 rounded-full blur-[100px]" />
+      <div className="absolute top-1/4 left-1/4 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] md:w-[500px] md:h-[500px] bg-[#8b1a4a]/20 rounded-full blur-[80px] sm:blur-[100px] md:blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-[150px] h-[150px] sm:w-[250px] sm:h-[250px] md:w-[400px] md:h-[400px] bg-[#6b3fa0]/20 rounded-full blur-[60px] sm:blur-[80px] md:blur-[100px]" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
@@ -554,7 +552,7 @@ function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-wider"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-wider"
           >
             DESIREMAP
           </motion.h1>
@@ -564,7 +562,7 @@ function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-light tracking-wide"
+            className="text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-300 font-light tracking-wide"
           >
             Where Desire Meets Reality
           </motion.p>
@@ -626,7 +624,7 @@ function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-8 pt-8"
+            className="flex flex-wrap justify-center gap-3 sm:gap-6 md:gap-8 pt-6 sm:pt-8"
           >
             {[
               { icon: <Building2 />, value: '847+', label: 'Betriebe' },
@@ -634,13 +632,13 @@ function HeroSection() {
               { icon: <Star />, value: '4.6', label: 'Bewertung' },
               { icon: <Shield />, value: '100%', label: 'Verifiziert' }
             ].map((stat) => (
-              <div key={stat.label} className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[#b76e79]">
+              <div key={stat.label} className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-white/5 flex items-center justify-center text-[#b76e79]">
                   {stat.icon}
                 </div>
                 <div className="text-left">
-                  <div className="text-white font-semibold text-lg">{stat.value}</div>
-                  <div className="text-gray-500 text-sm">{stat.label}</div>
+                  <div className="text-white font-semibold text-sm sm:text-base md:text-lg">{stat.value}</div>
+                  <div className="text-gray-500 text-xs sm:text-sm">{stat.label}</div>
                 </div>
               </div>
             ))}
@@ -675,40 +673,36 @@ function HeroSection() {
 // Categories Section - Redesigned
 function CategoriesSection() {
   return (
-    <section className="relative py-24 overflow-hidden">
-      {/* Subtle gradient transition from hero */}
+    <section className="relative py-12 sm:py-16 md:py-24 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0810] to-[#0f0f14]" />
       
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-[#8b1a4a]/10 rounded-full blur-[150px]" />
-      <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-[#6b3fa0]/10 rounded-full blur-[120px]" />
+      <div className="absolute top-0 left-1/4 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] bg-[#8b1a4a]/10 rounded-full blur-[100px] sm:blur-[120px] md:blur-[150px]" />
+      <div className="absolute bottom-0 right-1/4 w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] md:w-[300px] md:h-[300px] bg-[#6b3fa0]/10 rounded-full blur-[80px] sm:blur-[100px] md:blur-[120px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Section Header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
           <motion.span
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block text-[#b76e79] text-sm font-medium tracking-widest uppercase mb-4"
+            className="inline-block text-[#b76e79] text-xs sm:text-sm font-medium tracking-widest uppercase mb-3 sm:mb-4"
           >
             Kategorien
           </motion.span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Nach Kategorie entdecken
           </h2>
-          <p className="text-gray-400 text-lg max-w-xl mx-auto">
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-xl mx-auto">
             Finde genau das, was du suchst
           </p>
         </motion.div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
           {categories.map((category, index) => (
             <motion.a
               key={category.id}
@@ -720,29 +714,25 @@ function CategoriesSection() {
               whileHover={{ y: -8 }}
               className="group relative"
             >
-              <div className="relative p-8 rounded-3xl bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 hover:border-[#8b1a4a]/40 transition-all duration-500 overflow-hidden">
-                {/* Glow effect on hover */}
+              <div className="relative p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5 hover:border-[#8b1a4a]/40 transition-all duration-500 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#8b1a4a]/0 to-[#8b1a4a]/0 group-hover:from-[#8b1a4a]/10 group-hover:to-transparent transition-all duration-500" />
                 
-                {/* Icon */}
-                <div className="relative w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#8b1a4a]/20 to-[#6b3fa0]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#8b1a4a]/30 to-[#6b3fa0]/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 mx-auto mb-3 sm:mb-4 md:mb-6 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#8b1a4a]/20 to-[#6b3fa0]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#8b1a4a]/30 to-[#6b3fa0]/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <span className="relative text-[#b76e79] group-hover:text-white transition-colors duration-300">
                     {category.icon}
                   </span>
                 </div>
 
-                {/* Content */}
-                <h3 className="relative text-white font-semibold text-lg mb-2 group-hover:text-[#b76e79] transition-colors duration-300">
+                <h3 className="relative text-white font-semibold text-sm sm:text-base md:text-lg mb-1 sm:mb-2 group-hover:text-[#b76e79] transition-colors duration-300">
                   {category.name}
                 </h3>
-                <p className="relative text-gray-500 text-sm group-hover:text-gray-400 transition-colors duration-300">
+                <p className="relative text-gray-500 text-xs sm:text-sm group-hover:text-gray-400 transition-colors duration-300">
                   {category.count} Betriebe
                 </p>
 
-                {/* Arrow */}
-                <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-                  <ChevronRight className="w-5 h-5 text-[#b76e79]" />
+                <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 right-3 sm:right-4 md:right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#b76e79]" />
                 </div>
               </div>
             </motion.a>
@@ -756,37 +746,34 @@ function CategoriesSection() {
 // Featured Cities - Redesigned
 function FeaturedCities({ onCityClick }: { onCityClick: (city: string) => void }) {
   return (
-    <section className="relative py-24 bg-[#0f0f14] overflow-hidden">
-      {/* Background elements */}
+    <section className="relative py-12 sm:py-16 md:py-24 bg-[#0f0f14] overflow-hidden">
       <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/4 w-[300px] h-[300px] bg-[#6b3fa0]/5 rounded-full blur-[100px]" />
-      <div className="absolute top-1/2 -translate-y-1/2 right-1/4 w-[250px] h-[250px] bg-[#8b1a4a]/5 rounded-full blur-[100px]" />
+      <div className="absolute top-1/2 -translate-y-1/2 left-1/4 w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] md:w-[300px] md:h-[300px] bg-[#6b3fa0]/5 rounded-full blur-[80px] sm:blur-[100px]" />
+      <div className="absolute top-1/2 -translate-y-1/2 right-1/4 w-[100px] h-[100px] sm:w-[180px] sm:h-[180px] md:w-[250px] md:h-[250px] bg-[#8b1a4a]/5 rounded-full blur-[80px] sm:blur-[100px]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Section Header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-10 md:mb-12"
         >
           <div>
             <motion.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="inline-block text-[#b76e79] text-sm font-medium tracking-widest uppercase mb-3"
+              className="inline-block text-[#b76e79] text-xs sm:text-sm font-medium tracking-widest uppercase mb-2 sm:mb-3"
             >
               Standorte
             </motion.span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
               Beliebte Städte
             </h2>
           </div>
         </motion.div>
 
-        {/* Cities Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {germanCities.map((city, index) => (
             <motion.button
               key={city.name}
@@ -795,30 +782,26 @@ function FeaturedCities({ onCityClick }: { onCityClick: (city: string) => void }
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.5 }}
-              className="group relative text-left"
+              className="group relative text-left min-h-[56px] sm:min-h-[60px]"
             >
-              <div className="relative p-6 rounded-2xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/5 hover:border-[#8b1a4a]/30 transition-all duration-300 overflow-hidden">
-                {/* Hover glow */}
+              <div className="relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/5 hover:border-[#8b1a4a]/30 transition-all duration-300 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#8b1a4a]/0 to-transparent group-hover:from-[#8b1a4a]/5 transition-all duration-300" />
                 
-                <div className="relative flex items-center gap-4">
-                  {/* City Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8b1a4a]/20 to-[#6b3fa0]/20 flex items-center justify-center group-hover:from-[#8b1a4a]/30 group-hover:to-[#6b3fa0]/30 transition-all duration-300">
-                    <MapPin className="w-5 h-5 text-[#b76e79]" />
+                <div className="relative flex items-center gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#8b1a4a]/20 to-[#6b3fa0]/20 flex items-center justify-center group-hover:from-[#8b1a4a]/30 group-hover:to-[#6b3fa0]/30 transition-all duration-300">
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#b76e79]" />
                   </div>
                   
-                  {/* City Info */}
                   <div className="flex-1">
-                    <h3 className="text-white font-semibold text-lg group-hover:text-[#b76e79] transition-colors duration-300">
+                    <h3 className="text-white font-semibold text-base sm:text-lg group-hover:text-[#b76e79] transition-colors duration-300">
                       {city.name}
                     </h3>
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 text-xs sm:text-sm">
                       {city.count} Betriebe
                     </p>
                   </div>
 
-                  {/* Arrow */}
-                  <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-[#b76e79] group-hover:translate-x-1 transition-all duration-300" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-[#b76e79] group-hover:translate-x-1 transition-all duration-300" />
                 </div>
               </div>
             </motion.button>
@@ -854,84 +837,79 @@ function ListingCard({ bordell, index, onDetailClick }: { bordell: Bordell; inde
           </div>
         )}
 
-        <div onClick={() => onDetailClick(bordell)} className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/5 hover:border-[#8b1a4a]/30 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-[#8b1a4a]/10 cursor-pointer">
-          {/* Image Area */}
-          <div className="relative h-56 bg-gradient-to-br from-[#1a1a24] to-[#252533] overflow-hidden">
+        <div onClick={() => onDetailClick(bordell)} className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-white/5 hover:border-[#8b1a4a]/30 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-[#8b1a4a]/10 cursor-pointer">
+          <div className="relative h-44 sm:h-52 md:h-56 bg-gradient-to-br from-[#1a1a24] to-[#252533] overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             
-            {/* Badges */}
-            <div className="absolute top-4 left-4 flex gap-2">
-              <Badge className="bg-[#8b1a4a]/80 text-white border-0">{typeLabels[bordell.type]}</Badge>
+            <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex gap-2">
+              <Badge className="bg-[#8b1a4a]/80 text-white border-0 text-xs">{typeLabels[bordell.type]}</Badge>
             </div>
 
-            <div className="absolute top-4 right-4 flex flex-col gap-2">
-              {bordell.premium && <Badge className="bg-gradient-to-r from-[#8b1a4a] to-[#6b3fa0] text-white border-0"><Crown className="w-3 h-3 mr-1" />Premium</Badge>}
-              {bordell.verified && <Badge className="bg-green-500/80 text-white border-0"><Check className="w-3 h-3 mr-1" />Verifiziert</Badge>}
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex flex-col gap-1.5 sm:gap-2">
+              {bordell.premium && <Badge className="bg-gradient-to-r from-[#8b1a4a] to-[#6b3fa0] text-white border-0 text-xs"><Crown className="w-3 h-3 mr-1" />Premium</Badge>}
+              {bordell.verified && <Badge className="bg-green-500/80 text-white border-0 text-xs"><Check className="w-3 h-3 mr-1" />Verifiziert</Badge>}
             </div>
 
-            {/* Favorite */}
-            <button onClick={(e) => { e.stopPropagation(); setIsFavorite(!isFavorite) }} className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-[#8b1a4a]/50 transition-all">
-              <Heart className={cn('w-5 h-5', isFavorite ? 'fill-red-500 text-red-500' : 'text-white')} />
+            <button onClick={(e) => { e.stopPropagation(); setIsFavorite(!isFavorite) }} className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-[#8b1a4a]/50 transition-all">
+              <Heart className={cn('w-4 h-4 sm:w-5 sm:h-5', isFavorite ? 'fill-red-500 text-red-500' : 'text-white')} />
             </button>
 
-            {/* Status */}
-            <div className="absolute bottom-4 left-4">
-              <div className={cn('flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium', bordell.isOpen ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400')}>
-                <div className={cn('w-2 h-2 rounded-full', bordell.isOpen ? 'bg-green-400 animate-pulse' : 'bg-gray-400')} />
+            <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4">
+              <div className={cn('flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-medium', bordell.isOpen ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400')}>
+                <div className={cn('w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full', bordell.isOpen ? 'bg-green-400 animate-pulse' : 'bg-gray-400')} />
                 {bordell.isOpen ? 'Geöffnet' : 'Geschlossen'}
               </div>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-5">
-            <div className="flex items-start justify-between gap-4 mb-3">
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-[#b76e79] transition-colors">
+          <div className="p-3 sm:p-4 md:p-5">
+            <div className="flex items-start justify-between gap-2 sm:gap-4 mb-2 sm:mb-3">
+              <div className="min-w-0 flex-1">
+                <h3 className="text-base sm:text-lg font-semibold text-white mb-0.5 sm:mb-1 group-hover:text-[#b76e79] transition-colors truncate">
                   {bordell.name}
                 </h3>
-                <div className="flex items-center gap-2 text-gray-400 text-sm">
-                  <MapPin className="w-4 h-4 text-[#b76e79]" />
-                  <span>{bordell.location}</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 text-gray-400 text-xs sm:text-sm">
+                  <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-[#b76e79] flex-shrink-0" />
+                  <span className="truncate">{bordell.location}</span>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="text-right flex-shrink-0">
                 <div className="flex items-center gap-1 text-[#b76e79]">
-                  <Star className="w-4 h-4 fill-current" />
-                  <span className="font-bold">{bordell.rating}</span>
+                  <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
+                  <span className="font-bold text-sm sm:text-base">{bordell.rating}</span>
                 </div>
-                <div className="text-gray-500 text-xs">{bordell.reviewCount} Bewertungen</div>
+                <div className="text-gray-500 text-xs hidden sm:block">{bordell.reviewCount} Bewertungen</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 mb-3 text-sm">
+            <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3 text-xs sm:text-sm">
               <div className="flex items-center gap-1.5 text-gray-400">
-                <Users className="w-4 h-4 text-[#b76e79]" />
-                <span>{bordell.ladiesCount} Damen</span>
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-[#b76e79]" />
+                <span>{bordell.ladiesCount}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-gray-400">
-                <Clock className="w-4 h-4 text-[#b76e79]" />
-                <span>{bordell.openHours}</span>
+              <div className="flex items-center gap-1.5 text-gray-400 truncate">
+                <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-[#b76e79] flex-shrink-0" />
+                <span className="truncate">{bordell.openHours}</span>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2 mb-4">
-              {bordell.services.slice(0, 3).map((service) => (
-                <Badge key={service} variant="outline" className="border-white/10 text-gray-400">{service}</Badge>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+              {bordell.services.slice(0, 2).map((service) => (
+                <Badge key={service} variant="outline" className="border-white/10 text-gray-400 text-xs">{service}</Badge>
               ))}
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-white/5">
+            <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-white/5">
               <div>
                 <span className="text-gray-500 text-xs">Preis</span>
-                <div className="text-[#b76e79] font-bold">{bordell.priceRange}</div>
+                <div className="text-[#b76e79] font-bold text-sm sm:text-base">{bordell.priceRange}</div>
               </div>
-              <div className="flex gap-2">
-                <Button size="sm" variant="outline" className="border-white/10 text-gray-300 hover:bg-white/5 hover:text-white">
-                  <Eye className="w-4 h-4" />
+              <div className="flex gap-1.5 sm:gap-2">
+                <Button size="sm" variant="outline" className="border-white/10 text-gray-300 hover:bg-white/5 hover:text-white h-8 w-8 sm:h-9 sm:w-9 p-0">
+                  <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </Button>
-                <Button size="sm" onClick={() => setShowReservation(true)} className="bg-gradient-to-r from-[#8b1a4a] to-[#6b3fa0] hover:from-[#a8255c] hover:to-[#7d4fb5] text-white border-0">
-                  <Calendar className="w-4 h-4 mr-1" /> Reservieren
+                <Button size="sm" onClick={() => setShowReservation(true)} className="bg-gradient-to-r from-[#8b1a4a] to-[#6b3fa0] hover:from-[#a8255c] hover:to-[#7d4fb5] text-white border-0 h-8 sm:h-9 text-xs sm:text-sm">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1" /> Reservieren
                 </Button>
               </div>
             </div>
