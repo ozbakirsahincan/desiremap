@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { bordells, mockUser } from '@/data/mock-data'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
@@ -19,10 +19,9 @@ function useNavTranslations() {
   return { discover: t('discover'), cities: t('cities'), premium: t('premium'), advertise: t('advertise'), login: t('login'), register: t('register'), myAccount: t('myAccount') }
 }
 
-type ViewState = { selectedCity: string | null; selectedBordell: Bordell | null; isLoggedIn: boolean; isAdmin: boolean; loginMessage?: string }
 type Handlers = { onCityClick: (city: string) => void; onBordellClick: (bordell: Bordell) => void; onBackHome: () => void; onBackCity: () => void; onLogin: () => void; onAdminLogin: () => void; onLogout: () => void }
 
-function ViewHome(props: { onCityClick: (city: string) => void; onBordellClick: (bordell: Bordell) => void; onLoginRequired: (message?: string) => void }) {
+function ViewHome(props: { locale: string; onCityClick: (city: string) => void; onBordellClick: (bordell: Bordell) => void; onLoginRequired: (message?: string) => void }) {
   return <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><HomePage {...props} /></motion.div>
 }
 
@@ -47,6 +46,7 @@ function ViewAdmin(props: { onLogout: () => void }) {
 }
 
 export default function Home() {
+  const locale = useLocale()
   const [view, setView] = useState<View>('home')
   const [selectedCity, setSelectedCity] = useState<string | null>(null)
   const [selectedBordell, setSelectedBordell] = useState<Bordell | null>(null)
@@ -67,7 +67,7 @@ export default function Home() {
   }
   const renderView = () => {
     const viewMap: Record<View, React.ReactNode> = {
-      home: <ViewHome onCityClick={handlers.onCityClick} onBordellClick={handlers.onBordellClick} onLoginRequired={(msg) => { setLoginMessage(msg); setView('login'); toTop() }} />,
+      home: <ViewHome locale={locale} onCityClick={handlers.onCityClick} onBordellClick={handlers.onBordellClick} onLoginRequired={(msg) => { setLoginMessage(msg); setView('login'); toTop() }} />,
       city: selectedCity ? <ViewCity city={selectedCity} handlers={handlers} /> : null,
       detail: selectedBordell ? <ViewDetail bordell={selectedBordell} hasCity={!!selectedCity} handlers={handlers} /> : null,
       login: <ViewLogin loginMessage={loginMessage} handlers={handlers} />,
@@ -78,9 +78,9 @@ export default function Home() {
   }
   return (
     <main className="min-h-screen bg-black flex flex-col">
-      {showLayout && <Header onLoginClick={(msg) => { setLoginMessage(msg); setView('login'); toTop() }} isLoggedIn={isLoggedIn} onDashboardClick={() => setView('dashboard')} translations={navTranslations} />}
+      {showLayout && <Header locale={locale} onLoginClick={(msg) => { setLoginMessage(msg); setView('login'); toTop() }} isLoggedIn={isLoggedIn} onDashboardClick={() => setView('dashboard')} translations={navTranslations} />}
       <AnimatePresence mode="wait">{renderView()}</AnimatePresence>
-      {showLayout && <Footer />}
+      {showLayout && <Footer locale={locale} />}
     </main>
   )
 }
