@@ -85,5 +85,19 @@
     "en": "English",
     "ar": "العربية",
     "tr": "Türkçe"
+  },
+  "search": {
+    "backToHome": "العودة للصفحة الرئيسية",
+    "searchPlaceholder": "ابحث عن أندية، خدمات...",
+    "selectCity": "اختر مدينة...",
+    "allCities": "جميع المدن",
+    "results": "نتائج البحث",
+    "found": "نتيجة gefunden",
+    "noResults": "لا توجد نتائج",
+    "noResultsHint": "جرب كلمات مفتاحية مختلفة أو امسح الفلاتر",
+    "sponsored": "برعاية",
+    "premium": "بريميوم",
+    "filters": "الفلاتر",
+    "clearFilters": "مسح الفلاتر"
   }
 }

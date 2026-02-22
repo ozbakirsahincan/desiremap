@@ -85,5 +85,19 @@
     "en": "English",
     "ar": "العربية",
     "tr": "Türkçe"
+  },
+  "search": {
+    "backToHome": "Back to Home",
+    "searchPlaceholder": "Search for clubs, services...",
+    "selectCity": "Select city...",
+    "allCities": "All Cities",
+    "results": "Search Results",
+    "found": "results found",
+    "noResults": "No results found",
+    "noResultsHint": "Try different keywords or clear filters",
+    "sponsored": "Sponsored",
+    "premium": "Premium",
+    "filters": "Filters",
+    "clearFilters": "Clear Filters"
   }
 }

@@ -85,5 +85,19 @@
     "en": "English",
     "ar": "العربية",
     "tr": "Türkçe"
+  },
+  "search": {
+    "backToHome": "Zurück zur Startseite",
+    "searchPlaceholder": "Suche nach Clubs, Services...",
+    "selectCity": "Stadt wählen...",
+    "allCities": "Alle Städte",
+    "results": "Suchergebnisse",
+    "found": "Ergebnisse gefunden",
+    "noResults": "Keine Ergebnisse gefunden",
+    "noResultsHint": "Versuchen Sie andere Suchbegriffe oder entfernen Sie Filter",
+    "sponsored": "Gesponsert",
+    "premium": "Premium",
+    "filters": "Filter",
+    "clearFilters": "Filter entfernen"
   }
 }

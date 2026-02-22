@@ -85,5 +85,19 @@
     "en": "English",
     "ar": "العربية",
     "tr": "Türkçe"
+  },
+  "search": {
+    "backToHome": "Ana Sayfaya Dön",
+    "searchPlaceholder": "Kulüp, hizmet ara...",
+    "selectCity": "Şehir seç...",
+    "allCities": "Tüm Şehirler",
+    "results": "Arama Sonuçları",
+    "found": "sonuç bulundu",
+    "noResults": "Sonuç bulunamadı",
+    "noResultsHint": "Farklı anahtar kelimeler deneyin veya filtreleri temizleyin",
+    "sponsored": "Sponsorlu",
+    "premium": "Premium",
+    "filters": "Filtreler",
+    "clearFilters": "Filtreleri Temizle"
   }
 }
