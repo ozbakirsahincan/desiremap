@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
+    },
+    "maestro": {
+      "source": "xenitv1/claude-code-maestro",
+      "sourceType": "github",
+      "computedHash": "f86a7b1a3c840d7f9eb289387b875fee81c10f4acba37960e895e45bceae0520"
+    },
+    "nextjs-seo": {
+      "source": "laguagu/claude-code-nextjs-skills",
+      "sourceType": "github",
+      "computedHash": "cb162b4dddde7d73157a338d2a86347b816e67db691c39a8c29f1e1e7145cba5"
+    },
+    "seo-audit": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "computedHash": "6bd4cde58bb701b5dc90a0fae2f0ea3efc7c3e6fd2ae754083fa659930e7d39f"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "a6a44d5498f7e8f68289902f3dedfc6f38ae0cee1e96527c80724cf27f727c2a"
+    }
+  }
+}
