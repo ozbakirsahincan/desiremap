@@ -5,85 +5,35 @@ import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Toaster } from '@/components/ui/toaster'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin']
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin']
-})
-
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
+const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
 const siteUrl = 'https://desiremap.de'
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: '#0a0a0f'
-}
-
-export async function generateMetadata({
-  params
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
-  const { locale } = await params
-  
-  const titles: Record<string, string> = {
-    de: 'DesireMap - Premium Erotik Guide Deutschland',
-    en: 'DesireMap - Premium Erotic Guide Germany',
-    tr: 'DesireMap - Almanya Erotik Rehberi',
-    ar: 'DesireMap - دليل الإروتيك الألماني'
-  }
-
-  const descriptions: Record<string, string> = {
-    de: 'Exklusive FKK Clubs, Bordelle und Laufhäuser in Deutschland. Diskrete, verifizierte Adressen.',
-    en: 'Exclusive FKK clubs, brothels and laufhaus in Germany. Discreet, verified addresses.',
-    tr: 'Almanya\'da özel FKK kulüpleri, genelevler ve laufhaus. Gizli, doğrulanmış adresler.',
-    ar: 'أندية FKK حصرية وبيوت الدعارة في ألمانيا. عناوين سرية وموثقة.'
-  }
-
-  return {
-    metadataBase: new URL(siteUrl),
-    title: {
-      default: titles[locale] || titles.de,
-      template: '%s | DesireMap'
-    },
-    description: descriptions[locale] || descriptions.de,
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        de: '/de',
-        en: '/en',
-        tr: '/tr',
-        ar: '/ar',
-        'x-default': '/de'
-      }
-    },
-    openGraph: {
-      type: 'website',
-      locale: locale === 'de' ? 'de_DE' : locale === 'en' ? 'en_US' : locale === 'ar' ? 'ar_SA' : 'tr_TR',
-      url: `${siteUrl}/${locale}`,
-      siteName: 'DesireMap',
-      title: titles[locale] || titles.de,
-      description: descriptions[locale] || descriptions.de,
-      images: [{ url: '/hero-bg.jpg', width: 1200, height: 630 }]
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: titles[locale] || titles.de,
-      description: descriptions[locale] || descriptions.de,
-      images: ['/hero-bg.jpg']
-    }
-  }
-}
-
 const locales = ['de', 'en', 'ar', 'tr']
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }))
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#0a0a0f' }
+
+const localeTitles: Record<string, string> = { de: 'DesireMap - Premium Erotik Guide Deutschland', en: 'DesireMap - Premium Erotic Guide Germany', tr: 'DesireMap - Almanya Erotik Rehberi', ar: 'DesireMap - دليل الإروتيك الألماني' }
+const localeDescriptions: Record<string, string> = { de: 'Exklusive FKK Clubs, Bordelle und Laufhäuser in Deutschland. Diskrete, verifizierte Adressen.', en: 'Exclusive FKK clubs, brothels and laufhaus in Germany. Discreet, verified addresses.', tr: 'Almanya\'da özel FKK kulüpleri, genelevler ve laufhaus. Gizli, doğrulanmış adresler.', ar: 'أندية FKK حصرية وبيوت الدعارة في ألمانيا. عناوين سرية وموثقة.' }
+const ogLocales: Record<string, string> = { de: 'de_DE', en: 'en_US', ar: 'ar_SA', tr: 'tr_TR' }
+
+function getLocaleData(locale: string) {
+  return { title: localeTitles[locale] || localeTitles.de, description: localeDescriptions[locale] || localeDescriptions.de, ogLocale: ogLocales[locale] || ogLocales.de }
 }
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const { title, description, ogLocale } = getLocaleData(locale)
+  return {
+    metadataBase: new URL(siteUrl),
+    title: { default: title, template: '%s | DesireMap' },
+    description,
+    alternates: { canonical: `/${locale}`, languages: { de: '/de', en: '/en', tr: '/tr', ar: '/ar', 'x-default': '/de' } },
+    openGraph: { type: 'website', locale: ogLocale, url: `${siteUrl}/${locale}`, siteName: 'DesireMap', title, description, images: [{ url: '/hero-bg.jpg', width: 1200, height: 630 }] },
+    twitter: { card: 'summary_large_image', title, description, images: ['/hero-bg.jpg'] }
+  }
+}
+
+export function generateStaticParams() { return locales.map((locale) => ({ locale })) }
 
 const listingSchemas = [
   { '@type': 'LocalBusiness', '@id': `${siteUrl}/#listing-1`, name: 'Artemis', description: 'Berlins größtes FKK Club', telephone: '+49 30 123456', address: { '@type': 'PostalAddress', addressLocality: 'Berlin', addressCountry: 'DE' }, aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.8, reviewCount: 1247 } },

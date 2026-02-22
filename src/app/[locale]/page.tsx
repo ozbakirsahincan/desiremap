@@ -6,17 +6,45 @@ import { useTranslations } from 'next-intl'
 import { bordells, mockUser } from '@/data/mock-data'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
-import { CategoriesSection } from '@/components/home/CategoriesSection'
-import { FeaturedCities } from '@/components/home/FeaturedCities'
-import { HeroSection } from '@/components/home/HeroSection'
-import { ListingsSection } from '@/components/listings/ListingsSection'
-import { PromoSections } from '@/components/home/PromoSections'
-import { AdminPanel } from '@/components/pages/AdminPanel'
+import { HomePage } from '@/components/home/HomePage'
 import { CityPage } from '@/components/pages/CityPage'
 import { DashboardPage } from '@/components/pages/DashboardPage'
 import { DetailPage } from '@/components/pages/DetailPage'
 import { LoginPage } from '@/components/pages/LoginPage'
+import { AdminPanel } from '@/components/pages/AdminPanel'
 import type { Bordell, View } from '@/types'
+
+function useNavTranslations() {
+  const t = useTranslations('nav')
+  return { discover: t('discover'), cities: t('cities'), premium: t('premium'), advertise: t('advertise'), login: t('login'), register: t('register'), myAccount: t('myAccount') }
+}
+
+type ViewState = { selectedCity: string | null; selectedBordell: Bordell | null; isLoggedIn: boolean; isAdmin: boolean; loginMessage?: string }
+type Handlers = { onCityClick: (city: string) => void; onBordellClick: (bordell: Bordell) => void; onBackHome: () => void; onBackCity: () => void; onLogin: () => void; onAdminLogin: () => void; onLogout: () => void }
+
+function ViewHome(props: { onCityClick: (city: string) => void; onBordellClick: (bordell: Bordell) => void; onLoginRequired: (message?: string) => void }) {
+  return <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><HomePage {...props} /></motion.div>
+}
+
+function ViewCity(props: { city: string; handlers: Handlers }) {
+  return <CityPage key="city" city={props.city} bordells={bordells} onBack={props.handlers.onBackHome} onBordellClick={props.handlers.onBordellClick} />
+}
+
+function ViewDetail(props: { bordell: Bordell; hasCity: boolean; handlers: Handlers }) {
+  return <DetailPage key="detail" bordell={props.bordell} onBack={props.hasCity ? props.handlers.onBackCity : props.handlers.onBackHome} />
+}
+
+function ViewLogin(props: { loginMessage?: string; handlers: Handlers }) {
+  return <LoginPage key="login" onBack={props.handlers.onBackHome} loginMessage={props.loginMessage} onLogin={props.handlers.onLogin} onAdminLogin={props.handlers.onAdminLogin} />
+}
+
+function ViewDashboard(props: { onLogout: () => void }) {
+  return <DashboardPage key="dashboard" user={mockUser} onLogout={props.onLogout} />
+}
+
+function ViewAdmin(props: { onLogout: () => void }) {
+  return <AdminPanel key="admin" onLogout={props.onLogout} />
+}
 
 export default function Home() {
   const [view, setView] = useState<View>('home')
@@ -25,39 +53,34 @@ export default function Home() {
   const [loginMessage, setLoginMessage] = useState<string | undefined>()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
-  const nav = useTranslations('nav')
-  const hero = useTranslations('hero')
-  const stats = useTranslations('stats')
-  const categories = useTranslations('categories')
-  const cities = useTranslations('cities')
-  const navTranslations = { discover: nav('discover'), cities: nav('cities'), premium: nav('premium'), advertise: nav('advertise'), login: nav('login'), register: nav('register'), myAccount: nav('myAccount') }
-  const heroTranslations = { title: hero('title'), subtitle: hero('subtitle'), description: hero('description'), searchPlaceholder: hero('searchPlaceholder'), selectCity: hero('selectCity'), search: hero('search'), scrollToExplore: hero('scrollToExplore') }
-  const statsTranslations = { establishments: stats('establishments'), ladies: stats('ladies'), rating: stats('rating'), verified: stats('verified') }
-  const categoriesTranslations = { title: categories('title'), subtitle: categories('subtitle') }
-  const citiesTranslations = { title: cities('title'), subtitle: cities('subtitle') }
-
+  const navTranslations = useNavTranslations()
   const toTop = () => window.scrollTo(0, 0)
-  const handleCityClick = (city: string) => { setSelectedCity(city); setView('city'); toTop() }
-  const handleBordellClick = (bordell: Bordell) => { setSelectedBordell(bordell); setView('detail'); toTop() }
-  const handleBackToHome = () => { setView('home'); setSelectedCity(null); setSelectedBordell(null); setLoginMessage(undefined); toTop() }
-  const handleBackToCity = () => { setView('city'); setSelectedBordell(null); toTop() }
-  const handleLoginRequired = (message?: string) => { setLoginMessage(message); setView('login'); toTop() }
-  const handleLogin = () => { setIsLoggedIn(true); setLoginMessage(undefined); setView('dashboard'); toTop() }
-  const handleAdminLogin = () => { setIsAdmin(true); setView('admin'); toTop() }
-  const handleLogout = () => { setIsLoggedIn(false); setIsAdmin(false); setView('home'); toTop() }
-
+  const showLayout = view !== 'dashboard' && view !== 'admin'
+  const handlers: Handlers = {
+    onCityClick: (city) => { setSelectedCity(city); setView('city'); toTop() },
+    onBordellClick: (bordell) => { setSelectedBordell(bordell); setView('detail'); toTop() },
+    onBackHome: () => { setView('home'); setSelectedCity(null); setSelectedBordell(null); setLoginMessage(undefined); toTop() },
+    onBackCity: () => { setView('city'); setSelectedBordell(null); toTop() },
+    onLogin: () => { setIsLoggedIn(true); setLoginMessage(undefined); setView('dashboard'); toTop() },
+    onAdminLogin: () => { setIsAdmin(true); setView('admin'); toTop() },
+    onLogout: () => { setIsLoggedIn(false); setIsAdmin(false); setView('home'); toTop() }
+  }
+  const renderView = () => {
+    const viewMap: Record<View, React.ReactNode> = {
+      home: <ViewHome onCityClick={handlers.onCityClick} onBordellClick={handlers.onBordellClick} onLoginRequired={(msg) => { setLoginMessage(msg); setView('login'); toTop() }} />,
+      city: selectedCity ? <ViewCity city={selectedCity} handlers={handlers} /> : null,
+      detail: selectedBordell ? <ViewDetail bordell={selectedBordell} hasCity={!!selectedCity} handlers={handlers} /> : null,
+      login: <ViewLogin loginMessage={loginMessage} handlers={handlers} />,
+      dashboard: isLoggedIn ? <ViewDashboard onLogout={handlers.onLogout} /> : null,
+      admin: isAdmin ? <ViewAdmin onLogout={handlers.onLogout} /> : null
+    }
+    return viewMap[view]
+  }
   return (
     <main className="min-h-screen bg-black flex flex-col">
-      {view !== 'dashboard' && view !== 'admin' && <Header onLoginClick={handleLoginRequired} isLoggedIn={isLoggedIn} onDashboardClick={() => setView('dashboard')} translations={navTranslations} />}
-      <AnimatePresence mode="wait">
-        {view === 'home' && <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><HeroSection translations={heroTranslations} stats={statsTranslations} /><CategoriesSection translations={categoriesTranslations} /><FeaturedCities onCityClick={handleCityClick} translations={citiesTranslations} /><ListingsSection bordells={bordells} onBordellClick={handleBordellClick} /><PromoSections onLoginRequired={handleLoginRequired} /></motion.div>}
-        {view === 'city' && selectedCity && <CityPage key="city" city={selectedCity} bordells={bordells} onBack={handleBackToHome} onBordellClick={handleBordellClick} />}
-        {view === 'detail' && selectedBordell && <DetailPage key="detail" bordell={selectedBordell} onBack={selectedCity ? handleBackToCity : handleBackToHome} />}
-        {view === 'login' && <LoginPage key="login" onBack={handleBackToHome} loginMessage={loginMessage} onLogin={handleLogin} onAdminLogin={handleAdminLogin} />}
-        {view === 'dashboard' && isLoggedIn && <DashboardPage key="dashboard" user={mockUser} onLogout={handleLogout} />}
-        {view === 'admin' && isAdmin && <AdminPanel key="admin" onLogout={handleLogout} />}
-      </AnimatePresence>
-      {view !== 'dashboard' && view !== 'admin' && <Footer />}
+      {showLayout && <Header onLoginClick={(msg) => { setLoginMessage(msg); setView('login'); toTop() }} isLoggedIn={isLoggedIn} onDashboardClick={() => setView('dashboard')} translations={navTranslations} />}
+      <AnimatePresence mode="wait">{renderView()}</AnimatePresence>
+      {showLayout && <Footer />}
     </main>
   )
 }
