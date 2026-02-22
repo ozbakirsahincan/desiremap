@@ -14,14 +14,24 @@ const languages = [
 ]
 
 export function LanguageSelector() {
-  const locale = useLocale()
+  const localeFromHook = useLocale()
   const router = useRouter()
   const pathname = usePathname()
-  const currentLang = languages.find((lang) => lang.code === locale) ?? languages[0]
+  
+  const segments = pathname.split('/').filter(Boolean)
+  const localeFromPath = segments[0]
+  const validLocales = ['de', 'en', 'ar', 'tr']
+  const currentLocale = validLocales.includes(localeFromPath) ? localeFromPath : localeFromHook
+  
+  const currentLang = languages.find((lang) => lang.code === currentLocale) ?? languages[0]
+  
   const changeLocale = (newLocale: string) => {
-    const segments = pathname.split('/')
-    segments[1] = newLocale
-    router.push(segments.join('/'))
+    if (segments.length > 0 && validLocales.includes(segments[0])) {
+      segments[0] = newLocale
+    } else {
+      segments.unshift(newLocale)
+    }
+    router.push('/' + segments.join('/'))
   }
 
   return (
@@ -37,7 +47,7 @@ export function LanguageSelector() {
           <DropdownMenuItem
             key={lang.code}
             onClick={() => changeLocale(lang.code)}
-            className={`cursor-pointer text-gray-300 hover:text-white hover:bg-[#8b1a4a]/20 ${locale === lang.code ? 'bg-[#8b1a4a]/20 text-white' : ''}`}
+            className={`cursor-pointer text-gray-300 hover:text-white hover:bg-[#8b1a4a]/20 ${currentLocale === lang.code ? 'bg-[#8b1a4a]/20 text-white' : ''}`}
           >
             {lang.flag} {lang.name}
           </DropdownMenuItem>
