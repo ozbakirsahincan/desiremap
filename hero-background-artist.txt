@@ -5,6 +5,9 @@ homepage:
     featured_cities:
         - https://pixabay.com/photos/woman-beauty-fashion-glamour-5635437/
         - innamykytas
+    listings_section:
+        - https://pixabay.com/photos/young-woman-beauty-life-tenderness-4266712/
+        - NataljaDanilchenko
 search_page:
     header_background:
     - https://pixabay.com/photos/adult-attractive-beautiful-beauty-10109858/

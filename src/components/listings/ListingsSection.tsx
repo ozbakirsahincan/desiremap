@@ -20,9 +20,10 @@ export function ListingsSection({ bordells, onBordellClick }: ListingsSectionPro
   return (
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1515630278258-407f66498911?w=1920&q=80" alt="" className="w-full h-full object-cover opacity-10" />
-        <div className="absolute inset-0 bg-linear-to-b from-black via-[#0a0810]/95 to-black" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70" />
+        {/* <img src="https://images.unsplash.com/photo-1515630278258-407f66498911?w=1920&q=80" alt="" className="w-full h-full object-cover opacity-10" /> */}
+        <img src="listing-bg.jpg" alt="" className="w-full h-full object-cover opacity-40" />
+        <div className="absolute inset-0 bg-linear-to-b from-black via-[#0a0810]/10 to-black/5" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/10" />
       </div>
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#8b1a4a]/10 rounded-full blur-[180px]" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#6b3fa0]/10 rounded-full blur-[150px]" />
